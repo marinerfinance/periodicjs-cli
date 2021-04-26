@@ -5,7 +5,7 @@
  * Copyright (c) 2014 Yaw Joseph Etse. All rights reserved.
  */
 // install as module // $ npm install periodicjs@latest --install-node-module
-// default install // $ npm install periodicjs@latest 
+// default install // $ npm install periodicjs@latest
 // upgrade // $ npm install periodicjs@latest --upgrade
 // upgrade // $ npm install periodicjs@latest --upgrade-install-periodic
 
@@ -14,21 +14,21 @@
 var fs = require('fs-extra'),
 		path = require('path'),
 		async = require('async'),
-		Utilities = require('periodicjs.core.utilities'),
+		Utilities = require('@mariner/periodicjs.core.utilities'),
 		CoreUtilities = new Utilities({}),
-		Extensions = require('periodicjs.core.extensions'),
+		Extensions = require('@mariner/periodicjs.core.extensions'),
 		npm = require('npm'),
 		upgradeinstall = typeof process.env.npm_config_upgrade_install_periodic ==='string' ||  typeof process.env.npm_config_update ==='string',
 		upgradeinstallalias = typeof process.env.npm_config_upgrade ==='string',
 		originalnodemoduleslocation,
 		originallocation,
 		newlocation = path.resolve(process.cwd(),'../../periodicjs'),
-		standardExtensions = require('./standard_extensions'),	
+		standardExtensions = require('./standard_extensions'),
 		extension_config_path = path.join(process.cwd(),'content/config/extensions.json');
 var npmhelper_from_installer = false;
 
 var moveInstalledPeriodic = function(){
-	fs.copySync(path.join(originallocation,'.npmignore'),path.join(originallocation,'.gitignore'));  
+	fs.copySync(path.join(originallocation,'.npmignore'),path.join(originallocation,'.gitignore'));
 	fs.ensureDir(newlocation,function(err){
 		if(err){
 			console.error(err);
@@ -51,14 +51,14 @@ var moveInstalledPeriodic = function(){
 							console.log(err.stack);
 							process.exit(0);
 						}
-						else{	
+						else{
 							console.log('Installed Periodicjs');
 							if(upgradeinstall || upgradeinstallalias){
 								console.log('Restart to upgrade Periodicjs');
 								console.log('\u0007');
 
 								CoreUtilities.restart_app({
-									callback:function(err,text) { 
+									callback:function(err,text) {
 										console.log ('err',err);
 										console.log ('moveinstalledperiodic',text);
 										process.exit(0);
@@ -93,28 +93,28 @@ var upgradePeriodic = function(callback){
 
 	for(var x in currentPeriodicjsExtJson.extensions){
 		switch(currentPeriodicjsExtJson.extensions[x].name){
-			case 'periodicjs.ext.admin':
+			case '@mariner/periodicjs.ext.admin':
 				current_ext_admin = currentPeriodicjsExtJson.extensions[x];
 				break;
-			case 'periodicjs.ext.dbseed':
+			case '@mariner/periodicjs.ext.dbseed':
 				current_ext_dbseed = currentPeriodicjsExtJson.extensions[x];
 				break;
-			case 'periodicjs.ext.default_routes':
+			case '@mariner/periodicjs.ext.default_routes':
 				current_ext_default_routes = currentPeriodicjsExtJson.extensions[x];
 				break;
-			case 'periodicjs.ext.install':
+			case '@mariner/periodicjs.ext.install':
 				current_ext_install = currentPeriodicjsExtJson.extensions[x];
 				break;
-			case 'periodicjs.ext.login':
+			case '@mariner/periodicjs.ext.login':
 				current_ext_login = currentPeriodicjsExtJson.extensions[x];
 				break;
-			case 'periodicjs.ext.mailer':
+			case '@mariner/periodicjs.ext.mailer':
 				current_ext_mailer = currentPeriodicjsExtJson.extensions[x];
 				break;
-			case 'periodicjs.ext.scheduled_content':
+			case '@mariner/periodicjs.ext.scheduled_content':
 				current_ext_scheduled_content = currentPeriodicjsExtJson.extensions[x];
 				break;
-			case 'periodicjs.ext.user_access_control':
+			case '@mariner/periodicjs.ext.user_access_control':
 				current_ext_user_access_control = currentPeriodicjsExtJson.extensions[x];
 				break;
 		}
@@ -122,28 +122,28 @@ var upgradePeriodic = function(callback){
 
 	for(var y in updatedPeriodicjsExtJson.extensions){
 		switch(updatedPeriodicjsExtJson.extensions[y].name){
-			case 'periodicjs.ext.admin':
+			case '@mariner/periodicjs.ext.admin':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_admin) ? current_ext_admin.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
-			case 'periodicjs.ext.dbseed':
+			case '@mariner/periodicjs.ext.dbseed':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_dbseed) ? current_ext_dbseed.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
-			case 'periodicjs.ext.default_routes':
+			case '@mariner/periodicjs.ext.default_routes':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_default_routes) ? current_ext_default_routes.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
-			case 'periodicjs.ext.install':
+			case '@mariner/periodicjs.ext.install':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_install) ? current_ext_install.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
-			case 'periodicjs.ext.login':
+			case '@mariner/periodicjs.ext.login':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_login) ? current_ext_login.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
-			case 'periodicjs.ext.mailer':
+			case '@mariner/periodicjs.ext.mailer':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_mailer) ? current_ext_mailer.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
-			case 'periodicjs.ext.scheduled_content':
+			case '@mariner/periodicjs.ext.scheduled_content':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_scheduled_content) ? current_ext_scheduled_content.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
-			case 'periodicjs.ext.user_access_control':
+			case '@mariner/periodicjs.ext.user_access_control':
 				updatedPeriodicjsExtJson.extensions[y].enabled = (current_ext_user_access_control) ? current_ext_user_access_control.enabled : updatedPeriodicjsExtJson.extensions[y].enabled;
 				break;
 		}
@@ -161,28 +161,28 @@ var upgradePeriodic = function(callback){
 					mergedPeriodicExtJson.extensions[a] = updatedPeriodicjsExtJson.extensions[b];
 				}
 			}
-		}	
+		}
 		// console.log('mergedPeriodicExtJson',mergedPeriodicExtJson);
 		fs.writeJSONSync(updatedExtensionJsonFile,mergedPeriodicExtJson);
 	}
 
 
-	fs.removeSync(path.join(originallocation,'content/config/environment')); 
-	fs.removeSync(path.join(originallocation,'content/config/extensions')); 
-	fs.removeSync(path.join(originallocation,'content/config/themes')); 
-	fs.removeSync(path.join(originallocation,'content/config/deployment')); 
-	fs.removeSync(path.join(originallocation,'content/config/process')); 
-	fs.removeSync(path.join(originallocation,'content/config/config.json')); 
-	fs.removeSync(path.join(originallocation,'content/config/database.js')); 
-	fs.removeSync(path.join(originallocation,'content/config/logger.js')); 
-	fs.removeSync(path.join(originallocation,'content/config/startup.js')); 
-	fs.removeSync(path.join(originallocation,'public/uploads/files')); 
-	// fs.removeSync(path.join(originallocation,'content/config/extensions.json'));  
-	fs.removeSync(path.join(originallocation,'processes'));  
-	fs.removeSync(path.join(originallocation,'logs'));  
+	fs.removeSync(path.join(originallocation,'content/config/environment'));
+	fs.removeSync(path.join(originallocation,'content/config/extensions'));
+	fs.removeSync(path.join(originallocation,'content/config/themes'));
+	fs.removeSync(path.join(originallocation,'content/config/deployment'));
+	fs.removeSync(path.join(originallocation,'content/config/process'));
+	fs.removeSync(path.join(originallocation,'content/config/config.json'));
+	fs.removeSync(path.join(originallocation,'content/config/database.js'));
+	fs.removeSync(path.join(originallocation,'content/config/logger.js'));
+	fs.removeSync(path.join(originallocation,'content/config/startup.js'));
+	fs.removeSync(path.join(originallocation,'public/uploads/files'));
+	// fs.removeSync(path.join(originallocation,'content/config/extensions.json'));
+	fs.removeSync(path.join(originallocation,'processes'));
+	fs.removeSync(path.join(originallocation,'logs'));
 
 	// moveInstalledPeriodic();
-	callback(); 
+	callback();
 };
 
 var remove_installed_periodic_from_node_modules = function(options,callback){
@@ -342,7 +342,7 @@ var cleanInstallStandardExtensions = function(options,callback){
 	});
 };
 
-/** 
+/**
  * @description get list of installed extensions to test against extensions.json to see if during deployment, new extensions were added, if so, then install them
  */
 var getInstalledExtensions = function(callback){
@@ -368,7 +368,7 @@ var getInstalledExtensions = function(callback){
 			for(let x in files){
 				if(files[x].match(/periodicjs\.ext/gi)){
 					let ext_package_json = fs.readJsonSync(path.join(project_periodic_directory,files[x],'/package.json'));
-					installedmod.push(files[x]+'@'+ext_package_json.version);					
+					installedmod.push(files[x]+'@'+ext_package_json.version);
 				}
 			}
 			console.log('installed modules',installedmod);
@@ -381,7 +381,7 @@ var getInstalledExtensions = function(callback){
 };
 
 var getMissingExtensionsFromConfig = function(installedExtensions,callback){
-	/** 
+	/**
 	 * compare installed extensions with extension from conf
 	 * @param  {array} installedExtensions   array of extensions installed in node modules
 	 * @param  {array} allExtensionsFromConf array of extension objects from extensions.json
@@ -395,7 +395,7 @@ var getMissingExtensionsFromConfig = function(installedExtensions,callback){
 			for(var y in installedExtensions){
 				for(var z in allExtensionsFromConf){
 					if(installedExtensions[y]===allExtensionsFromConf[z].name+'@'+allExtensionsFromConf[z].version || (
-							allExtensionsFromConf[z].name.match('/') && 
+							allExtensionsFromConf[z].name.match('/') &&
 							installedExtensions[y]===allExtensionsFromConf[z].name.split('/')[1]+'@'+allExtensionsFromConf[z].version
 
 						) ){
@@ -405,7 +405,7 @@ var getMissingExtensionsFromConfig = function(installedExtensions,callback){
 						installedExtensionsFromConf.push(allExtensionsFromConf.splice(z,1)[0]);
 					}
 				}
-			}	
+			}
 		}
 
 		/**
@@ -442,7 +442,7 @@ var getMissingExtensionsFromConfig = function(installedExtensions,callback){
 		else{
 			// console.log('currentextensions',currentextensions);
 			missingExtensions = getMissingExtensions(installedExtensions,(currentextensions && currentextensions.extensions && Array.isArray(currentextensions.extensions))? currentextensions.extensions : currentextensions);
-			console.log('missingExtensions',missingExtensions);		
+			console.log('missingExtensions',missingExtensions);
 			callback(null,missingExtensions);
 		}
 	};
@@ -483,7 +483,7 @@ var installMissingExtensions = function(missingExtensions,callback){
 			 	npm.silent = true;
 			 	npm.quiet = true;
 				npm.commands.install(missingExtensions,
-				function (err 
+				function (err
 					//,data
 					) {
 						fs.writeJSONSync(extension_config_path,initialExtensionConf);
@@ -495,7 +495,7 @@ var installMissingExtensions = function(missingExtensions,callback){
 					else {
 						callback(null,'installed missing extensions',missingExtensions);
 					}
-				});	
+				});
 				//npm.on('log', function (message) {
 				//	console.log(message);
 				//});
@@ -562,7 +562,7 @@ var installMissingNodeModulesAsync = function(missingExtensions,callback){
 	if(npmhelper_from_installer){
 		extension_config_path = path.resolve(__dirname,'../../../content/config/extensions.json');
 	}
-		
+
 	installCustomConfigNodeModules(function(err,customcallbackstatus){
 		if(err){
 			callback(err);
@@ -703,7 +703,7 @@ var installThemeModulesAsync = function(themename,callback){
 						function (err) {
 							console.log('theme npm install err',err,themedir);
 							callback(null,'installed theme node modules');
-						});	
+						});
 					}
 				});
 			}

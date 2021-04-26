@@ -13,7 +13,7 @@ const npmhelper = require('./npmhelper')({ npmhelper_from_installer: true });
 const npmcleaninstall = require('./npm_clean_install');
 const deploy_sync = require('./npm_deploymentsync');
 const async = require('async');
-const Utilities = require('periodicjs.core.utilities');
+const Utilities = require('@mariner/periodicjs.core.utilities');
 const CoreUtilities = new Utilities({});
 const colors = require('colors');
 const skip_app_post_install = ((typeof process.env.npm_config_skip_app_post_install !== 'undefined' && process.env.npm_config_skip_app_post_install) || (typeof process.env.npm_config_skip_post_install !== 'undefined' && process.env.npm_config_skip_post_install)) ? true : false;
@@ -41,7 +41,7 @@ let create_log_directory = function() {
         already_installed = true;
       }
     }
-  
+
   } catch (e) {
 
   }

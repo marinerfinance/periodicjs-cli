@@ -30,7 +30,7 @@ var run_cmd = function (cmd, args, callback, env) {
     child = spawn(cmd, args, env);
   }
   else {
-    child = spawn(cmd, args);		
+    child = spawn(cmd, args);
   }
 
   child.stdout.on('error', function (err) {
@@ -49,7 +49,7 @@ var run_cmd = function (cmd, args, callback, env) {
   child.on('exit', function () {
     callback(null, 'command run: ' + cmd + ' ' + args);
     process.exit(0);
-  }); 
+  });
 };
 
 // $ deploy deploy development
@@ -69,7 +69,7 @@ program
         logger.error(e);
         logger.error(e.stack);
         process.exit(0);
-      }      
+      }
     }
   });
 
@@ -103,7 +103,7 @@ program
       .then(result => {
         console.log(`Successfully ran deploysync`.green.underline);
       })
-      .catch(err => { 
+      .catch(err => {
         console.log(`Error running deploysync: ${err}`.red.underline);
       });
   });
@@ -163,7 +163,7 @@ function installExtension(extension) {
     console.log(`Installing ${name}@${version}`.green.underline);
     npm.load(npm_load_options, function (err) {
       if (err) return console.log(`Error installing extension ${name}`.red.underline);
-      npm.commands.install([`periodicjs.ext.${name}@${version}`], function (err, data) {
+      npm.commands.install([`@mariner/periodicjs.ext.${name}@${version}`], function (err, data) {
         if (err) return console.log(`Error installing extension ${name}`.red.underline)
         console.log(`Successfully installed extension ${name}@${version}`.green.underline);
       })
@@ -172,11 +172,11 @@ function installExtension(extension) {
     console.log(`Installing ${extension}@latest`.green.underline);
     npm.load(npm_load_options, function (err) {
       if (err) return console.log(`Error installing extension ${name}`.red.underline);
-      npm.commands.install([`periodicjs.ext.${extension}`], function (err, data) {
+      npm.commands.install([`@mariner/periodicjs.ext.${extension}`], function (err, data) {
         if (err) return console.log(`Error installing extension ${extension}`.red.underline)
         console.log(`Successfully installed extension ${extension}@$latest`.green.underline);
       })
-    })    
+    })
   }
 };
 
@@ -191,7 +191,7 @@ function removeExtension(extension) {
   console.log(`Removing extension ${extension}`.green.underline);
   npm.load(npm_load_options, function (err) {
     if (err) return console.log(`Error removing extension ${err}`.red.underline);
-    npm.commands.remove([`periodicjs.ext.${extension}`], function (err, data) {
+    npm.commands.remove([`@mariner/periodicjs.ext.${extension}`], function (err, data) {
       if (err) return console.log(`Error removing extension ${err}`.red.underline)
       console.log(`Successfully removed extension ${extension}`.green.underline);
     })
@@ -239,7 +239,7 @@ program
             fs.remove(install_prefix + '/node_modules/periodicjs', (err) => {
               if (err) return console.log('Error removing periodicjs from node_modules');
               return Promise.resolve();
-            });          
+            });
           })
           .then(() => {
             console.log(`Installed periodicjs@${version}`.green.underline);
@@ -306,6 +306,6 @@ program
   .description('Runs periodicjs postinstall script')
   .action(function () {
     app_post_install.init(install_prefix);
-  });  
+  });
 
 program.parse(process.argv);
