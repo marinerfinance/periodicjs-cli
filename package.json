@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
-      "name": "Dax",
-      "email": "dpatel@marinerfinance.com"
+    "name": "Dax",
+    "email": "dpatel@marinerfinance.com"
   },
   "contributors": [
     {
@@ -29,7 +29,7 @@
     "nodemon": "^1.11.0",
     "@mariner/periodicjs.core.extensions": "7.0.8",
     "@mariner/periodicjs.core.utilities": "6.1.9",
-    "@mariner/promisie": "2.0.2",
+    "@mariner/promisie": "2.0.5",
     "semver": "^5.3.0",
     "utils-merge": "^1.0.0"
   },
